@@ -15,7 +15,7 @@ public class Product {
 	private String description;
 	private Integer cost;
 	@Lob
-	private Blob image;
+	private byte[] image;
 	
 	public Integer getId() {
 		return id;
@@ -48,22 +48,23 @@ public class Product {
 		this.cost = cost;
 	}
 	
-	public Blob getImage() {
+	public byte[] getImage() {
 		return image;
 	}
-	public void setImage(Blob image) {
+	public void setImage(byte[] image) {
 		this.image = image;
 	}
 	
 	
 	
-	public Product(Integer id, String name, String category, String description, int cost) {
+	public Product(Integer id, String name, String category, String description, int cost,byte[] image) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.category = category;
 		this.description = description;
 		this.cost = cost;
+		this.image = image;
 	}
 	public Product() {
 		super();
@@ -72,7 +73,7 @@ public class Product {
 	@Override
 	public String toString() {
 		return "Product [id=" + id + ", name=" + name + ", category=" + category + ", description=" + description
-				+ ", cost=" + cost + "]";
+				+ ", cost=" + cost + ",image="+image+"]";
 	}
 	
 	
