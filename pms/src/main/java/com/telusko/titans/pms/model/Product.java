@@ -41,7 +41,7 @@ public class Product {
 	@Column(name="product_rating",precision = 10,scale = 2)
 	private BigDecimal productRating;
 	
-	@Column(name="product_image")
+	@Column(name="product_image",columnDefinition = "bytea")
 	@Lob
 	private byte[] productImage;		
 	
