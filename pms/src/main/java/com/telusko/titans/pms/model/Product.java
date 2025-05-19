@@ -1,81 +1,59 @@
 package com.telusko.titans.pms.model;
 
-import java.sql.Blob;
-
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Lob;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.SequenceGenerator;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Product {
+	@Column(name="product_id")
 	@Id
-	private Integer id;
-	private String name;
-	private String category;
-	private String description;
-	private Integer cost;
+	@GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "product_sequence")
+	@SequenceGenerator(name = "product_sequence",sequenceName = "product_sequence",allocationSize = 1,initialValue = 5000)
+	private Integer productId;
+	
+	@Column(name="product_name",nullable = false)
+	private String productName;
+	
+	@Column(name="product_price",nullable = false)
+	private Integer productPrice;
+	
+	@Column(name="product_quantity_available")
+	private BigInteger quantityAvailable;
+	
+	
+	@Column(name="product_rating",precision = 10,scale = 2)
+	private BigDecimal productRating;
+	
+	@Column(name="product_image")
 	@Lob
-	private byte[] image;
+	private byte[] productImage;		
 	
-	public Integer getId() {
-		return id;
-	}
-	public void setId(Integer id) {
-		this.id = id;
-	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public String getCategory() {
-		return category;
-	}
-	public void setCategory(String category) {
-		this.category = category;
-	}
-	public String getDescription() {
-		return description;
-	}
-	public void setDescription(String description) {
-		this.description = description;
-	}
-	public int getCost() {
-		return cost;
-	}
-	public void setCost(int cost) {
-		this.cost = cost;
-	}
+	@ManyToOne
+	@JoinColumn(name="product_category_id")
+	private ProductCategory productCategory;
 	
-	public byte[] getImage() {
-		return image;
-	}
-	public void setImage(byte[] image) {
-		this.image = image;
-	}
+	@ManyToOne
+	@JoinColumn(name="product_brand_id")
+	private ProductBrand productBrand;
 	
 	
 	
-	public Product(Integer id, String name, String category, String description, int cost,byte[] image) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.category = category;
-		this.description = description;
-		this.cost = cost;
-		this.image = image;
-	}
-	public Product() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-	@Override
-	public String toString() {
-		return "Product [id=" + id + ", name=" + name + ", category=" + category + ", description=" + description
-				+ ", cost=" + cost + ",image="+image+"]";
-	}
 	
-	
-
 }
