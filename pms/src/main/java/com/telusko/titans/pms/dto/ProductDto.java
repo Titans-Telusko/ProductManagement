@@ -11,23 +11,21 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProductDto {
+
 	private Integer productId;
 	
-	private String productName;	
+	private String productName;
 			 
 	private Integer productPrice;
 	
-	private BigInteger quantityAvailable;	
+	private BigInteger quantityAvailable;
 	
-	private BigDecimal productRating;	
+	private BigDecimal productRating;
+
+	private byte[] productImage;
 	
-	private byte[] productImage;			
-	
-	private ProductCategoryDto productCategory;	
+	private ProductCategoryDto productCategory;
 
 	private ProductBrandDto productBrand;
-	
-	
-	
-	
+
 }

@@ -52,9 +52,7 @@ public class ProductService implements IProductService {
 
 		product = productRepo.save(product);
 
-		ProductDto response_dto = ProductUtility.converProductToProductDto(product);
-
-		return response_dto;
+        return ProductUtility.converProductToProductDto(product);
 
 	}
 

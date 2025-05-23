@@ -36,12 +36,11 @@ public class Product {
 	
 	@Column(name="product_quantity_available")
 	private BigInteger quantityAvailable;
-	
-	
+
 	@Column(name="product_rating",precision = 10,scale = 2)
 	private BigDecimal productRating;
 	
-	@Column(name="product_image",columnDefinition = "bytea")
+	@Column(name="product_image")
 	@Lob
 	private byte[] productImage;		
 	
@@ -52,8 +51,5 @@ public class Product {
 	@ManyToOne
 	@JoinColumn(name="product_brand_id")
 	private ProductBrand productBrand;
-	
-	
-	
-	
+
 }
