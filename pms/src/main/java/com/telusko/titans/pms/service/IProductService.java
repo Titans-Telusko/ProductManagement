@@ -10,4 +10,6 @@ public interface IProductService {
 	Page<ProductDto> getAllProducts(Pageable pageable);
 
 	ProductDto getProductById(int id);
+
+	Page<ProductDto> searchProductsByBrand(String brandName,Pageable pageable);
 }
