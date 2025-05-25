@@ -1,5 +1,6 @@
 package com.telusko.titans.pms.service;
 
+
 import org.springframework.stereotype.Service;
 import java.util.Optional;
 
@@ -58,7 +59,7 @@ public class ProductService implements IProductService {
 
 	@Override
 	public Page<ProductDto> getAllProducts(Pageable pageable) {
-		Page<ProductDto> products = productRepo.findAll(pageable).map(ProductUtility::converProductToProductDto);
+		Page<ProductDto> products = productRepo.findAll(pageable).map(product -> ProductUtility.converProductToProductDto(product));
 		return products;
 
 	}
@@ -74,5 +75,10 @@ public class ProductService implements IProductService {
 		return response_dto;
 	}
 
-	
+	@Override
+	public Page<ProductDto> searchProductsByBrand(String brandName, Pageable pageable) {
+		Page<ProductDto> products = brandRepo.findByBrandNameContainingIgnoreCase(brandName,pageable)
+											.map(product -> ProductUtility.converProductToProductDto(product));
+		return products;
+	}
 }

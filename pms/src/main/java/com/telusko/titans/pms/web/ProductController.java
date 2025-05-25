@@ -51,4 +51,19 @@ public class ProductController {
 
 	}
 
+	/*
+	Search by brand (brand pattern is also valid search)
+	Page of products of a particular brand will be returned from DB
+	Used path parameter to fetch particular brand products
+	*/
+
+	@GetMapping("/search-by/brand/{brandName}")
+	public ResponseEntity<Page<ProductDto>> searchProductsByBrand(@PathVariable("brandName") String brandName, @PageableDefault(size = 10 , page = 0)Pageable pageable){
+		Page<ProductDto> responsePageDto = service.searchProductsByBrand(brandName,pageable);
+		if(responsePageDto.getTotalElements() > 0){
+			return new ResponseEntity<>(responsePageDto, HttpStatus.OK);
+		}else{
+			return new ResponseEntity<>(Page.empty(), HttpStatus.NO_CONTENT);
+		}
+	}
 }
