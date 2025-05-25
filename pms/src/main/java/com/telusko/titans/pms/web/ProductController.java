@@ -49,12 +49,12 @@ public class ProductController {
 	*/
 
 	@GetMapping("/search-by/brand/{brandName}")
-	public ResponseEntity<Page<ProductDto>> searchProductsByBrand(@PathVariable("brandName") String brandName, @PageableDefault(size = 10, page = 0) Pageable pageable){
+	public ResponseEntity<Page<ProductDto>> searchProductsByBrand(@PathVariable("brandName") String brandName, @PageableDefault(size = 10 , page = 0)Pageable pageable){
 		Page<ProductDto> responsePageDto = service.searchProductsByBrand(brandName,pageable);
 		if(responsePageDto.getTotalElements() > 0){
-			return new ResponseEntity<Page<ProductDto>>(responsePageDto, HttpStatus.OK);
+			return new ResponseEntity<>(responsePageDto, HttpStatus.OK);
 		}else{
-			return new ResponseEntity<Page<ProductDto>>(Page.empty(), HttpStatus.NO_CONTENT);
+			return new ResponseEntity<>(Page.empty(), HttpStatus.NO_CONTENT);
 		}
 	}
 }
