@@ -11,7 +11,7 @@ import com.telusko.titans.pms.model.ProductCategory;
 public class ProductUtility {
 
 	/**
-	 * converProductModelToDto Copies the properties from Product to ProductDto *
+	 * convert ProductModelToDto, Copies the properties from Product to ProductDto *
 	 **/
 	public static ProductDto converProductToProductDto(Product product) {
 		ProductDto productDto = new ProductDto();
@@ -30,7 +30,7 @@ public class ProductUtility {
 	}
 
 	/**
-	 * constructProductModel Creates Product from Product Dto *
+	 * construct ProductModel, Creates Product from Product Dto *
 	 **/
 	public static Product constructProductModel(ProductDto dto, ProductBrand brand, ProductCategory category) {
 		Product product = new Product();
