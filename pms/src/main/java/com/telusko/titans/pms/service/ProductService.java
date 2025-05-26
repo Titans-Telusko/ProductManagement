@@ -1,6 +1,7 @@
 package com.telusko.titans.pms.service;
 
 
+import com.telusko.titans.pms.exceptions.BrandNameNotValidException;
 import org.springframework.stereotype.Service;
 import java.util.Optional;
 
@@ -77,8 +78,14 @@ public class ProductService implements IProductService {
 
 	@Override
 	public Page<ProductDto> searchProductsByBrand(String brandName, Pageable pageable) {
-		Page<ProductDto> products = brandRepo.findByBrandNameContainingIgnoreCase(brandName,pageable)
-											.map(product -> ProductUtility.converProductToProductDto(product));
-		return products;
+		if(brandName == null || brandName.equals("null") || brandName.isEmpty()) {
+			throw new BrandNameNotValidException("Brand cannot be null or empty");
+		}
+		Page<Product> products = brandRepo.findByBrandNameContainingIgnoreCase(brandName,pageable);
+		if(products != null && !products.getContent().isEmpty()) {
+			Page<ProductDto> responseProducts = products.map(product -> ProductUtility.converProductToProductDto(product));
+			return responseProducts;
+		}
+		throw new BrandNameNotValidException("Brand does not exist or Not Valid Brand");
 	}
 }
