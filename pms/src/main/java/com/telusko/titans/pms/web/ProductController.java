@@ -1,6 +1,7 @@
 package com.telusko.titans.pms.web;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.telusko.titans.pms.exceptions.InvalidPageException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -58,7 +59,15 @@ public class ProductController {
 	*/
 
 	@GetMapping("/search-by/brand/{brandName}")
-	public ResponseEntity<Page<ProductDto>> searchProductsByBrand(@PathVariable("brandName") String brandName, @PageableDefault(size = 10 , page = 0)Pageable pageable){
+	public ResponseEntity<Page<ProductDto>> searchProductsByBrand(
+			@PathVariable("brandName") String brandName,
+			@PageableDefault(size = 10 , page = 0)Pageable pageable)  {
+		if(pageable.getPageSize() < 0){
+			throw new InvalidPageException("Not a Valid Page " + pageable.getPageSize());
+		}
+		if(pageable.getPageNumber() < 0){
+			throw new InvalidPageException("Not a Valid page "+ pageable.getPageNumber());
+		}
 		Page<ProductDto> responsePageDto = service.searchProductsByBrand(brandName,pageable);
 		if(responsePageDto.getTotalElements() > 0){
 			return new ResponseEntity<>(responsePageDto, HttpStatus.OK);
