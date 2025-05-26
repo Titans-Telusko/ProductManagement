@@ -1,5 +1,6 @@
 package com.telusko.titans.pms.exceptions;
 
+import org.springframework.web.HttpMediaTypeNotAcceptableException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -34,7 +35,17 @@ public class ProductExceptionHandler {
 	        );
 	        return new ResponseEntity<ErrorResponse>(errorResponse, HttpStatus.BAD_REQUEST);
 	    }
-	 
+
+
+		@ExceptionHandler(BrandNameNotValidException.class)
+		public ResponseEntity<ErrorResponse> handleBrandNameException(BrandNameNotValidException e){
+		 	ErrorResponse errorResponse = new ErrorResponse(
+				 HttpStatus.BAD_REQUEST.value(),
+				 e.getMessage(),
+				 LocalDateTime.now()
+		 	);
+		 	return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+		}
 	    @ExceptionHandler(Exception.class)
 	    public ResponseEntity<ErrorResponse> handleGenericException(Exception e) {
 		 ErrorResponse errorResponse = new ErrorResponse(
@@ -45,5 +56,6 @@ public class ProductExceptionHandler {
 	        );
 	        return new ResponseEntity<ErrorResponse>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR); 
 	    }
+
 }
  
