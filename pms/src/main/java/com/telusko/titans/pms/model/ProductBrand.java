@@ -35,9 +35,5 @@ public class ProductBrand {
 	
 	@OneToMany(mappedBy = "productBrand", cascade = CascadeType.ALL)
 	private List<Product> products;
-	
-	
-	
-	
 
 }
