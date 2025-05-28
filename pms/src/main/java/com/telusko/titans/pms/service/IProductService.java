@@ -7,6 +7,8 @@ public interface IProductService {
 	
 	ProductDto addProduct(ProductDto brand);
 
+	ProductDto updateProduct(Integer id, ProductDto productDto);
+
 	Page<ProductDto> getAllProducts(Pageable pageable);
 
 	ProductDto getProductById(int id);

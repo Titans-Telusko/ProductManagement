@@ -36,6 +36,15 @@ public class ProductController {
 		return new ResponseEntity<>(dto, HttpStatus.CREATED);
 	}
 
+	@PutMapping("/product-update/{id}")
+	public ResponseEntity<ProductDto> updateProduct(
+			@PathVariable("id") Integer id,
+			@RequestBody ProductDto productDto ) {
+
+		ProductDto updatedProduct = service.updateProduct(id,productDto);
+		return new ResponseEntity<>(updatedProduct, HttpStatus.OK);
+	}
+
 	@GetMapping("/products")
 	ResponseEntity<Page<ProductDto>> getAllProducts(@PageableDefault(size = 10, page = 0) Pageable pageable) {
 		Page<ProductDto> dto = service.getAllProducts(pageable);
