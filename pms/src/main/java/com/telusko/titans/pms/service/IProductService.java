@@ -18,7 +18,4 @@ public interface IProductService {
 
 	Page<ProductDto> searchProductsByBrand(String brandName,Pageable pageable);
 
-	List<ProductDto> searchByTheName(String keyword);
-
-	Page<ProductDto> searchByTheProductPriceRange(double min,double max , Pageable pageable);
 }
