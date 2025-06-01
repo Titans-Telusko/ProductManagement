@@ -82,7 +82,7 @@ public class ProductController {
 	}
 
 	@GetMapping("/products/{matchWord}")
-	public ResponseEntity<List<ProductDto>> fetchByName(@PathVariable("matchWord") String word){
+	public ResponseEntity<List<ProductDto>> fetchByProductName(@PathVariable("matchWord") String word){
 		List<ProductDto> products = service.searchByTheName(word);
 
 		return new ResponseEntity<>(products,HttpStatus.OK);
