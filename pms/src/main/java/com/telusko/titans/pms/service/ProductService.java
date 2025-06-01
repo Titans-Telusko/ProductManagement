@@ -4,6 +4,8 @@ package com.telusko.titans.pms.service;
 import com.telusko.titans.pms.exceptions.BrandNameNotValidException;
 import com.telusko.titans.pms.exceptions.ProductNotFoundException;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
@@ -130,5 +132,18 @@ public class ProductService implements IProductService {
 			return responseProducts;
 		}
 		throw new BrandNameNotValidException("Brand does not exist or Not Valid Brand");
+	}
+
+	@Override
+	public List<ProductDto> searchByTheName(String keyword) {
+		List<Product>  productList  =  productRepo.searchByName(keyword);
+		return productList.stream()
+				.map(product -> ProductUtility.converProductToProductDto(product)).toList();
+	}
+
+	@Override
+	public Page<ProductDto> searchByTheProductPriceRange(double min, double max , Pageable pageable) {
+		Page<Product> products =  productRepo.searchByPriceRange(min,max, pageable);
+		return products.map(product -> ProductUtility.converProductToProductDto(product));
 	}
 }

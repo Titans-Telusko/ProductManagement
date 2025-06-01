@@ -3,6 +3,9 @@ package com.telusko.titans.pms.service;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Page;
 import com.telusko.titans.pms.dto.ProductDto;
+
+import java.util.List;
+
 public interface IProductService {
 	
 	ProductDto addProduct(ProductDto brand);
@@ -14,4 +17,8 @@ public interface IProductService {
 	ProductDto getProductById(int id);
 
 	Page<ProductDto> searchProductsByBrand(String brandName,Pageable pageable);
+
+	List<ProductDto> searchByTheName(String keyword);
+
+	Page<ProductDto> searchByTheProductPriceRange(double min,double max , Pageable pageable);
 }
