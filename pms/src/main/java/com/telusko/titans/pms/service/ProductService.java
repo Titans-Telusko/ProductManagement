@@ -134,5 +134,16 @@ public class ProductService implements IProductService {
 		throw new BrandNameNotValidException("Brand does not exist or Not Valid Brand");
 	}
 
+	@Override
+	public List<ProductDto> searchByTheName(String keyword) {
+		List<Product>  productList  =  productRepo.searchByName(keyword);
+		return productList.stream()
+				.map(product -> ProductUtility.converProductToProductDto(product)).toList();
+	}
 
+	@Override
+	public Page<ProductDto> searchByTheProductPriceRange(double min, double max , Pageable pageable) {
+		Page<Product> products =  productRepo.searchByPriceRange(min,max, pageable);
+		return products.map(product -> ProductUtility.converProductToProductDto(product));
+	}
 }

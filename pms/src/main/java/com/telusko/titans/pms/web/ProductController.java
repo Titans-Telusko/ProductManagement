@@ -81,5 +81,20 @@ public class ProductController {
 		}
 	}
 
+	@GetMapping("/products/{matchWord}")
+	public ResponseEntity<List<ProductDto>> fetchByProductName(@PathVariable("matchWord") String word){
+		List<ProductDto> products = service.searchByTheName(word);
 
+		return new ResponseEntity<>(products,HttpStatus.OK);
+	}
+
+	@GetMapping("/products/{min}/{max}")
+	public ResponseEntity<Page<ProductDto>> fetchByProductPriceRange(
+			@PathVariable double min, @PathVariable double max,
+			@PageableDefault(page = 0, size = 5, sort = "productName", direction = Sort.Direction.ASC)
+			Pageable pageable
+	){
+		Page<ProductDto> products = service.searchByTheProductPriceRange(min, max, pageable);
+		return  new ResponseEntity<>(products,HttpStatus.OK);
+	}
 }
